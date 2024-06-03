@@ -25,4 +25,18 @@
         android:text="go to bottom navigation"
         />
 
+    <Button
+        android:id="@+id/btnDeeplink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="go deeplink"
+        />
+
+    <Button
+        android:id="@+id/btnFourthScreen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="go Fourth Screen"
+        />
+
 </LinearLayout>

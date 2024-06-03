@@ -47,6 +47,7 @@ dependencies {
     implementation(project(":feature:firstScreen"))
     implementation(project(":feature:secondScreen"))
     implementation(project(":feature:thirdScreen"))
+    implementation(project(":feature:fourthscreen"))
     implementation(project(":feature:bottomNavigation"))
 
     implementation(libs.androidx.core.ktx)

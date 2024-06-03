@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.thirdscreen"
+    namespace = "com.example.fourthscreen"
     compileSdk = 34
 
     defaultConfig {
@@ -38,6 +38,7 @@ android {
 }
 
 dependencies {
+
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

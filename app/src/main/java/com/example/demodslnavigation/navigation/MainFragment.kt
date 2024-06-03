@@ -21,6 +21,7 @@ import com.example.presentation.models.NavigationArguments
 import com.example.presentation.models.NavigationRoute
 import com.example.demodslnavigation.navigation.utils.destinationString
 import com.example.firstscreen.TaskFragment
+import com.example.fourthscreen.FourthFragment
 import com.example.presentation.models.User
 import com.example.presentation.models.UserType
 import com.example.seconscreen.SecondFragment
@@ -53,48 +54,12 @@ class MainFragment : Fragment() {
         navController.graph = navController.createGraph(
             startDestination = NavigationRoute.FIRST_SCREEN
         ) {
-            fragment<FirstFragment>(NavigationRoute.FIRST_SCREEN)
+            fragment<FirstFragment>(NavigationRoute.FIRST_SCREEN) {
+                deepLink("test://hand_called")
+            }
             fragment<SecondFragment>(NavigationRoute.SECOND_SCREEN) {
                 deepLink("example://example")
             }
-//            fragment<ThirdFragment>(
-//                destinationString(
-//                    NavigationRoute.THIRD_SCREEN,
-//                    NavigationArguments.AMOUNT,
-//                    NavigationArguments.VALUE,
-//                    NavigationArguments.USER
-//                )
-//            ) {
-//
-//                navArgument(NavigationArguments.AMOUNT) {
-//                    type = NavType.IntType
-//                    defaultValue = 0
-//                    nullable = false
-//                }
-//
-//                navArgument(NavigationArguments.VALUE) {
-//                    type = NavType.StringType
-//                    defaultValue = null
-//                    nullable = true
-//                }
-//
-//                navArgument(NavigationArguments.USER) {
-//                    type = UserType
-//                    defaultValue = User("", 0)
-//                    nullable = false
-//                }
-//            }
-
-//            fragment<ThirdFragment>(
-//                "${NavigationRoute.PROFILE}?${NavigationArguments.USER_ID}={${NavigationArguments.USER_ID}}?${NavigationArguments.AMOUNT}={${NavigationArguments.AMOUNT}}"
-////                "${NavigationRoute.PROFILE}?${NavigationArguments.USER_ID}={${NavigationArguments.USER_ID}}"
-//            ) {
-//
-//                listOf(
-//                    navArgument(NavigationArguments.USER_ID) { type = NavType.StringType },
-//                    navArgument(NavigationArguments.AMOUNT) { type = NavType.IntType },
-//                )
-//            }
 
             fragment<ThirdFragment>("details/{itemId}/{itemName}/{user}") {
                 label = "Details"
@@ -115,6 +80,7 @@ class MainFragment : Fragment() {
 
             fragment<BottomNavigationFragment>(NavigationRoute.BOTTOM_NAVIGATION)
             fragment<TaskFragment>(NavigationRoute.TASK_SCREEN)
+            fragment<FourthFragment>(NavigationRoute.FOURTH_SCREEN)
 
         }
 

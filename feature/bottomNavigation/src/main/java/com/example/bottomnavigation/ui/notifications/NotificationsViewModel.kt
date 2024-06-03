@@ -1,13 +1,26 @@
 package com.example.bottomnavigation.ui.notifications
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class NotificationsViewModel : ViewModel() {
+@HiltViewModel
+class NotificationsViewModel @Inject constructor() : ViewModel() {
+    val text: MutableStateFlow<String> = MutableStateFlow("")
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is notifications Fragment"
+    init {
+        text.value = "loading..."
+        viewModelScope.launch {
+            delay(5000)
+            text.value = "NotificationsViewModel loaded"
+        }
+        Log.d("rawr","NotificationsViewModel init")
     }
-    val text: LiveData<String> = _text
 }
