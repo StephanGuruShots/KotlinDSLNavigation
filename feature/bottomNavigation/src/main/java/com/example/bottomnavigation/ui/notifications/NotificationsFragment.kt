@@ -15,11 +15,10 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.bottomnavigation.BottomNavigationFragment
 import com.example.bottomnavigation.databinding.FragmentNotificationsBinding
-import com.example.bottomnavigation.onNavDestinationSelected
-import com.example.bottomnavigation.toMenuItem
-import com.google.android.material.navigation.NavigationView
+import com.example.bottomnavigation.utils.navigateToBottomTab
+import com.example.bottomnavigation.utils.toMenuItem
+import com.example.presentation.core.NavigationRoute
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -73,11 +72,11 @@ class NotificationsFragment : Fragment() {
         val menu = (parentFragment?.parentFragment as BottomNavigationFragment).menu
 
         binding.btnHome.setOnClickListener {
-            onNavDestinationSelected("home".toMenuItem(menu!!)!!, findNavController())
+            navigateToBottomTab(NavigationRoute.HOME_SCREEN.toMenuItem(menu), findNavController())
         }
 
         binding.btnDashboard.setOnClickListener {
-            onNavDestinationSelected("dashboard".toMenuItem(menu!!)!!, findNavController())
+            navigateToBottomTab(NavigationRoute.DASHBOARD_SCREEN.toMenuItem(menu), findNavController())
         }
 
     }

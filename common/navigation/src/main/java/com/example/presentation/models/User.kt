@@ -38,26 +38,3 @@ val UserType = object : NavType<User>(
         return Json.decodeFromString<User>(value)
     }
 }
-
-@Parcelize
-class CustomClass() : Parcelable
-
-val CustomType = object : NavType<CustomClass>(
-    isNullableAllowed = false
-) {
-    override fun put(bundle: Bundle, key: String, value: CustomClass) {
-        Log.d("rawr","put")
-        bundle.putParcelable(key, value)
-    }
-
-    override fun get(bundle: Bundle, key: String): CustomClass? {
-        Log.d("rawr","get")
-        return bundle.parcelable<CustomClass>(key)
-    }
-
-    override fun parseValue(value: String): CustomClass {
-        Log.d("rawr","parseValue")
-
-        return Json.decodeFromString<CustomClass>(value)
-    }
-}

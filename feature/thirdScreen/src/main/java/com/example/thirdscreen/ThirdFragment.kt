@@ -8,8 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.example.presentation.core.NavigationArguments
 import com.example.presentation.core.NavigationRoute
 import com.example.presentation.models.User
+import com.example.presentation.navExt.navigateToBottomNavigation
+import com.example.presentation.navExt.navigateToForthScreen
+import com.example.presentation.navExt.navigateToHandmadeDeepLink
 import com.example.presentation.utils.parcelable
 import com.example.thirdscreen.databinding.FragmentThirdBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,7 +23,6 @@ import javax.inject.Inject
 class ThirdFragment : Fragment() {
 
     private lateinit var binding: FragmentThirdBinding
-    @Inject lateinit var navigationManager: ThirdScreenNavigationManager
 
     val TAG = "ThirdFragment"
 
@@ -50,38 +53,27 @@ class ThirdFragment : Fragment() {
 //        Log.d("rawr","$TAG: onViewCreated: userId: $userId")
 //        Log.d("rawr","$TAG: onViewCreated: amount: $amount")
 
-        val itemId = arguments?.getInt("itemId") ?: -1
-        val itemName = arguments?.getString("itemName") ?: "defaultName"
-        val user = arguments?.parcelable<User>("user")
+        val itemId = arguments?.getInt(NavigationArguments.ITEM_ID) ?: -1
+        val itemName = arguments?.getString(NavigationArguments.ITEM_NAME) ?: "defaultName"
+        val user = arguments?.parcelable<User>(NavigationArguments.USER)
 
         Log.d("rawr","$TAG: onViewCreated: itemId: $itemId itemName: $itemName user: $user")
 
         binding.btnBack.setOnClickListener {
-            with(navigationManager) {
-                navigateBack()
-            }
+            findNavController().popBackStack()
         }
         Log.d("rawr","$TAG: onViewCreated")
 
         binding.btnBottomNavigation.setOnClickListener {
-            with(navigationManager) {
-                navigateToBottomNavigation()
-            }
+            findNavController().navigateToBottomNavigation()
         }
 
         binding.btnDeeplink.setOnClickListener {
-            val deepLinkUri = Uri.parse("test://hand_called")
-
-            findNavController().navigate(deepLinkUri)
+            findNavController().navigateToHandmadeDeepLink()
         }
 
         binding.btnFourthScreen.setOnClickListener {
-            val navController = findNavController()
-            navController.navigate(NavigationRoute.FOURTH_SCREEN) {
-                popUpTo(navController.graph.startDestinationId) {
-                    inclusive = true
-                }
-            }
+            findNavController().navigateToForthScreen()
         }
     }
 

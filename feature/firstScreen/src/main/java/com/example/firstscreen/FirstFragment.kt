@@ -7,16 +7,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.findViewTreeViewModelStoreOwner
 import androidx.navigation.fragment.findNavController
 import com.example.firstscreen.databinding.FragmentFirstBinding
-import com.example.presentation.models.ProductDetails
+import com.example.presentation.navExt.navigateToSecondScreen
+import com.example.presentation.navExt.navigateToTaskScreen
 import com.example.presentation.models.User
+import com.example.presentation.navExt.navigateToProductDeepLink
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import javax.inject.Inject
-import javax.inject.Named
 
 @AndroidEntryPoint
 class FirstFragment : Fragment() {
@@ -24,9 +23,6 @@ class FirstFragment : Fragment() {
     private lateinit var binding: FragmentFirstBinding
 
     val TAG = "FirstFragment"
-
-    @Inject
-    lateinit var navigationManager: FirstScreenNavigationManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,23 +54,15 @@ class FirstFragment : Fragment() {
         }
 
         binding.btnSecondScreen.setOnClickListener {
-            with(navigationManager) {
-                navigateToSecondScreen()
-            }
+            findNavController().navigateToSecondScreen()
         }
 
         binding.btnTask.setOnClickListener {
-            with(navigationManager) {
-                navigateToTaskScreen()
-            }
+            findNavController().navigateToTaskScreen()
         }
 
         binding.btnDeeplinkArgs.setOnClickListener {
-            val productDetails = Uri.encode(Json.encodeToString(User("test",1)))
-            val deepLinkUri = Uri.parse("https://www.example.com/product/${productDetails}")
-
-// In your Activity or Fragment
-            findNavController().navigate(deepLinkUri)
+            findNavController().navigateToProductDeepLink(User("test",1))
         }
     }
 

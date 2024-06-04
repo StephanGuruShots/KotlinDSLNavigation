@@ -1,4 +1,4 @@
-package com.example.demodslnavigation.navigation
+package com.example.demodslnavigation
 
 import android.os.Bundle
 import android.util.Log
@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
 import androidx.navigation.NavType
 import androidx.navigation.createGraph
 import com.example.demodslnavigation.R
@@ -19,18 +21,20 @@ import com.example.demodslnavigation.MainActivity
 import com.example.presentation.core.NavigationRoute
 import com.example.firstscreen.TaskFragment
 import com.example.fourthscreen.FourthFragment
-import com.example.presentation.models.ProductDetails
+import com.example.presentation.core.NavigationArguments
+import com.example.presentation.core.destinationString
 import com.example.presentation.models.User
 import com.example.presentation.models.UserType
 import com.example.seconscreen.SecondFragment
 import com.example.thirdscreen.ThirdFragment
-import com.google.android.material.color.utilities.Scheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
 
     private lateinit var binding: FragmentMainBinding
+    private lateinit var navController: NavController
 
     private val TAG = "MainFragment"
 
@@ -46,7 +50,7 @@ class MainFragment : Fragment() {
 
         val navHostFragment =
             this.childFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
-        val navController = navHostFragment.findNavController()
+        navController = navHostFragment.findNavController()
 
         (requireActivity() as MainActivity).navController = navController
 
@@ -60,17 +64,23 @@ class MainFragment : Fragment() {
                 deepLink("example://example")
             }
 
-            fragment<ThirdFragment>("details/{itemId}/{itemName}/{user}") {
-                label = "Details"
-                argument("itemId") {
+            fragment<ThirdFragment>(
+                destinationString(
+                    NavigationRoute.THIRD_SCREEN,
+                    NavigationArguments.ITEM_ID,
+                    NavigationArguments.ITEM_NAME,
+                    NavigationArguments.USER
+                )
+            ) {
+                argument(NavigationArguments.ITEM_ID) {
                     type = NavType.IntType
                     defaultValue = -1
                 }
-                argument("itemName") {
+                argument(NavigationArguments.ITEM_NAME) {
                     type = NavType.StringType
                     defaultValue = "defaultName"
                 }
-                argument("user") {
+                argument(NavigationArguments.USER) {
                     type = UserType
                     defaultValue = User("", 0)
                 }
@@ -79,13 +89,17 @@ class MainFragment : Fragment() {
 
             fragment<BottomNavigationFragment>(NavigationRoute.BOTTOM_NAVIGATION)
             fragment<TaskFragment>(NavigationRoute.TASK_SCREEN)
-//            fragment<FourthFragment>(NavigationRoute.FOURTH_SCREEN)
 
-            fragment<FourthFragment>(NavigationRoute.FOURTH_SCREEN +"/{user}") {
+            fragment<FourthFragment>(
+                destinationString(
+                    NavigationRoute.FOURTH_SCREEN,
+                    NavigationArguments.USER
+                )
+            ) {
                 deepLink {
-                    uriPattern = "https://www.example.com/product/{user}"
+                    uriPattern = "https://www.example.com/product/{${NavigationArguments.USER}}"
                 }
-                argument("user") {
+                argument(NavigationArguments.USER) {
                     type = UserType
                     defaultValue = User("", 0)
                 }
@@ -99,6 +113,13 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            navController.currentBackStack.collect() {
+                val x = it.map { it.destination.route }
+                Log.d("rawr", "currentBackStack: ${x}")
+            }
+        }
 
         Log.d("rawr", "$TAG: onViewCreated")
 

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
 import com.example.firstscreen.databinding.FragmentFirstBinding
 import com.example.firstscreen.databinding.FragmentTaskBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,9 +19,6 @@ class TaskFragment : Fragment() {
     private lateinit var binding: FragmentTaskBinding
 
     val TAG = "TaskFragment"
-
-    @Inject
-    lateinit var navigationManager: FirstScreenNavigationManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,9 +39,7 @@ class TaskFragment : Fragment() {
             // Use the Kotlin extension in the fragment-ktx artifact.
             parentFragmentManager.setFragmentResult("requestKey", bundleOf("bundleKey" to result))
 
-            with(navigationManager) {
-                navigateBack()
-            }
+            findNavController().popBackStack()
         }
     }
 

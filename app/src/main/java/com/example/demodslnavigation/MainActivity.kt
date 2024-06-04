@@ -2,6 +2,7 @@ package com.example.demodslnavigation
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import com.example.demodslnavigation.databinding.ActivityMainBinding
@@ -15,10 +16,19 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
+
+        onBackPressedDispatcher.addCallback {
+            try {
+                navController.popBackStack()
+            } catch (e: Exception) {
+                onBackPressedDispatcher.onBackPressed()
+            }
+        }
+
         setContentView(binding.root)
     }
+
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)

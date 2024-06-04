@@ -8,5 +8,9 @@ object NavigationRoute {
     const val BOTTOM_NAVIGATION = "route_bottom_navigation"
     const val TASK_SCREEN = "route_task_screen"
 
+    const val HOME_SCREEN = "route_home_screen"
+    const val DASHBOARD_SCREEN = "route_dashboard_screen"
+    const val NOTIFICATIONS_SCREEN = "route_notifications_screen"
+
     const val PROFILE = "profile_screen"
 }

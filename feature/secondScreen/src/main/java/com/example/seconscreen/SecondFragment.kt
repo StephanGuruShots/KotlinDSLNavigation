@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.presentation.models.User
+import com.example.presentation.navExt.navigateToThirdScreen
 import com.example.seconscreen.databinding.FragmentSecondBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -15,7 +17,6 @@ import javax.inject.Inject
 class SecondFragment : Fragment() {
 
     private lateinit var binding: FragmentSecondBinding
-    @Inject lateinit var navigationManager: SecondScreenNavigationManager
 
     val TAG = "SecondFragment"
 
@@ -34,22 +35,18 @@ class SecondFragment : Fragment() {
         Log.d("rawr","$TAG: onViewCreated")
 
         binding.btnThirdScreen.setOnClickListener {
-            with(navigationManager) {
-                navigateToThirdScreen(
-                    amount = 4,
-                    value = "sadsds",
-                    user = User(
-                        name = "John",
-                        age = 30
-                    )
+            findNavController().navigateToThirdScreen(
+                amount = 4,
+                value = "sadsds",
+                user = User(
+                    name = "John",
+                    age = 30
                 )
-            }
+            )
         }
 
         binding.btnBack.setOnClickListener {
-            with(navigationManager) {
-                navigateBack()
-            }
+            findNavController().popBackStack()
         }
     }
 
