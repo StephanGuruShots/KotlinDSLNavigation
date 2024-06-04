@@ -1,12 +1,8 @@
 package com.example.demodslnavigation.navigation.managers
 
 import android.net.Uri
-import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.presentation.models.NavigationArguments
-import com.example.presentation.models.NavigationRoute
-import com.example.demodslnavigation.navigation.utils.navigateString
 import com.example.presentation.models.User
 import com.example.seconscreen.SecondScreenNavigationManager
 import kotlinx.serialization.encodeToString

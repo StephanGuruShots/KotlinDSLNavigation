@@ -1,4 +1,4 @@
-package com.example.presentation.models
+package com.example.presentation.core
 
 object NavigationArguments {
     const val AMOUNT = "amount_argument"

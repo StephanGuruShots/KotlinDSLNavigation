@@ -1,13 +1,20 @@
 package com.example.firstscreen
 
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.findViewTreeViewModelStoreOwner
+import androidx.navigation.fragment.findNavController
 import com.example.firstscreen.databinding.FragmentFirstBinding
+import com.example.presentation.models.ProductDetails
+import com.example.presentation.models.User
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -60,6 +67,14 @@ class FirstFragment : Fragment() {
             with(navigationManager) {
                 navigateToTaskScreen()
             }
+        }
+
+        binding.btnDeeplinkArgs.setOnClickListener {
+            val productDetails = Uri.encode(Json.encodeToString(User("test",1)))
+            val deepLinkUri = Uri.parse("https://www.example.com/product/${productDetails}")
+
+// In your Activity or Fragment
+            findNavController().navigate(deepLinkUri)
         }
     }
 

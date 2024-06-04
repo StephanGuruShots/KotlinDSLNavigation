@@ -14,18 +14,17 @@ import com.example.firstscreen.FirstFragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.fragment
-import androidx.navigation.navArgument
 import com.example.bottomnavigation.BottomNavigationFragment
 import com.example.demodslnavigation.MainActivity
-import com.example.presentation.models.NavigationArguments
-import com.example.presentation.models.NavigationRoute
-import com.example.demodslnavigation.navigation.utils.destinationString
+import com.example.presentation.core.NavigationRoute
 import com.example.firstscreen.TaskFragment
 import com.example.fourthscreen.FourthFragment
+import com.example.presentation.models.ProductDetails
 import com.example.presentation.models.User
 import com.example.presentation.models.UserType
 import com.example.seconscreen.SecondFragment
 import com.example.thirdscreen.ThirdFragment
+import com.google.android.material.color.utilities.Scheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -80,7 +79,18 @@ class MainFragment : Fragment() {
 
             fragment<BottomNavigationFragment>(NavigationRoute.BOTTOM_NAVIGATION)
             fragment<TaskFragment>(NavigationRoute.TASK_SCREEN)
-            fragment<FourthFragment>(NavigationRoute.FOURTH_SCREEN)
+//            fragment<FourthFragment>(NavigationRoute.FOURTH_SCREEN)
+
+            fragment<FourthFragment>(NavigationRoute.FOURTH_SCREEN +"/{user}") {
+                deepLink {
+                    uriPattern = "https://www.example.com/product/{user}"
+                }
+                argument("user") {
+                    type = UserType
+                    defaultValue = User("", 0)
+                }
+                // ... other configurations for this destination
+            }
 
         }
 

@@ -1,4 +1,4 @@
-package com.example.presentation.models
+package com.example.presentation.core
 
 object NavigationRoute {
     const val FIRST_SCREEN = "route_first_screen"

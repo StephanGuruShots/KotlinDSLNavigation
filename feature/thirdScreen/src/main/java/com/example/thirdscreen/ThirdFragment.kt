@@ -1,18 +1,14 @@
 package com.example.thirdscreen
 
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
-import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
-import com.example.presentation.models.NavigationArguments
-import com.example.presentation.models.NavigationRoute
+import com.example.presentation.core.NavigationRoute
 import com.example.presentation.models.User
 import com.example.presentation.utils.parcelable
 import com.example.thirdscreen.databinding.FragmentThirdBinding

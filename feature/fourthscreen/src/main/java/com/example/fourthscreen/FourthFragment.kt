@@ -7,6 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.fourthscreen.databinding.FragmentFourthBinding
+import com.example.presentation.models.ProductDetails
+import com.example.presentation.models.User
+import com.example.presentation.utils.parcelable
 import javax.inject.Inject
 
 class FourthFragment : Fragment() {
@@ -23,5 +26,12 @@ class FourthFragment : Fragment() {
         Log.d("rawr","$TAG: onCreateView")
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val productDetails = arguments?.parcelable<User>("user")
+        Log.d("rawr","$TAG: onViewCreated: $productDetails")
     }
 }
