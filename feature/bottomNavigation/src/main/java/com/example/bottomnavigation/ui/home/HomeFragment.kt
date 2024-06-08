@@ -14,6 +14,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.example.bottomnavigation.BottomNavigationFragment
 import com.example.bottomnavigation.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -53,9 +54,11 @@ class HomeFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.text.collect() {
-                    textView.text = it
-                }
+//                viewModel.text.collect() {
+//                    textView.text = it
+//                }
+                delay(5000)
+                textView.text = "Done!"
             }
         }
     }

@@ -14,6 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.bottomnavigation.databinding.FragmentDashboardBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -54,12 +55,16 @@ class DashboardFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.text.collect() {
-                    textView.text = it
-                }
+//                viewModel.text.collect() {
+//                    textView.text = it
+//                }
+                delay(5000)
+                textView.text = "Done!"
             }
         }
         Log.d("rawr","$TAG: onViewCreated")
+
+
 
     }
 

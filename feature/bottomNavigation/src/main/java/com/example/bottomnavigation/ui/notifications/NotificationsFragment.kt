@@ -12,13 +12,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.fragment.findNavController
-import com.example.bottomnavigation.BottomNavigationFragment
 import com.example.bottomnavigation.databinding.FragmentNotificationsBinding
-import com.example.bottomnavigation.utils.navigateToBottomTab
-import com.example.bottomnavigation.utils.toMenuItem
-import com.example.presentation.core.NavigationRoute
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -62,22 +58,26 @@ class NotificationsFragment : Fragment() {
         val textView: TextView = binding.textNotifications
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.text.collect() {
-                    textView.text = it
-                }
+//                viewModel.text.collect() {
+//                    textView.text = it
+//                }
+                delay(5000)
+                textView.text = "Done!"
             }
         }
         Log.d("rawr","$TAG: onViewCreated")
 
-        val menu = (parentFragment?.parentFragment as BottomNavigationFragment).menu
-
-        binding.btnHome.setOnClickListener {
-            navigateToBottomTab(NavigationRoute.HOME_SCREEN.toMenuItem(menu), findNavController())
-        }
-
-        binding.btnDashboard.setOnClickListener {
-            navigateToBottomTab(NavigationRoute.DASHBOARD_SCREEN.toMenuItem(menu), findNavController())
-        }
+//        val menu = (parentFragment?.parentFragment as BottomNavigationFragment).menu
+//
+//        binding.btnHome.setOnClickListener {
+//            navigateToBottomTab(NavigationRoute.HOME_SCREEN.toMenuItem(menu), findNavController())
+//        }
+//
+//        findNavController()
+//
+//        binding.btnDashboard.setOnClickListener {
+//            navigateToBottomTab(NavigationRoute.DASHBOARD_SCREEN.toMenuItem(menu), findNavController())
+//        }
 
     }
 

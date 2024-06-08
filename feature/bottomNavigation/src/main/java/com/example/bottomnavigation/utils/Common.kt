@@ -21,6 +21,8 @@ fun navigateToBottomTab(item: MenuItem?, navController: NavController): Boolean 
 
             launchSingleTop = true
             restoreState = true
+
+
         }
         true
     } catch (e: IllegalArgumentException) {

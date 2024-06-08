@@ -1,12 +1,11 @@
 package com.example.presentation.models
 
 import android.os.Bundle
-import android.os.Parcel
 import android.os.Parcelable
 import android.util.Log
-import kotlinx.parcelize.Parcelize
 import androidx.navigation.NavType
 import com.example.presentation.utils.parcelable
+import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
@@ -16,7 +15,7 @@ import kotlinx.serialization.json.Json
 data class User(
     val name: String,
     val age: Int
-) : Parcelable
+) : Parcelable, BaseNavArgument
 
 val UserType = object : NavType<User>(
     isNullableAllowed = false
