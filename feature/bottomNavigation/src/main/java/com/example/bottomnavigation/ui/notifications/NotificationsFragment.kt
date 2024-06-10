@@ -12,11 +12,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.fragment.findNavController
-import com.example.bottomnavigation.BottomNavigationFragment
 import com.example.bottomnavigation.databinding.FragmentNotificationsBinding
-import com.example.bottomnavigation.utils.navigateToBottomTab
-import com.example.bottomnavigation.utils.toMenuItem
+import com.example.bottomnavigation.utils.navigateToBottomTabByRoute
 import com.example.presentation.core.NavigationRoute
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -69,16 +66,13 @@ class NotificationsFragment : Fragment() {
         }
         Log.d("rawr","$TAG: onViewCreated")
 
-        val menu = (parentFragment?.parentFragment as BottomNavigationFragment).menu
-
         binding.btnHome.setOnClickListener {
-            navigateToBottomTab(NavigationRoute.HOME_SCREEN.toMenuItem(menu), findNavController())
+            navigateToBottomTabByRoute(NavigationRoute.HOME_SCREEN)
         }
 
         binding.btnDashboard.setOnClickListener {
-            navigateToBottomTab(NavigationRoute.DASHBOARD_SCREEN.toMenuItem(menu), findNavController())
+            navigateToBottomTabByRoute(NavigationRoute.DASHBOARD_SCREEN)
         }
-
     }
 
     override fun onPause() {
