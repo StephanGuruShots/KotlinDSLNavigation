@@ -4,7 +4,6 @@ import android.net.Uri
 import androidx.navigation.NavController
 import com.example.presentation.core.NavigationArguments
 import com.example.presentation.core.NavigationRoute
-import com.example.presentation.core.destinationString
 import com.example.presentation.core.navigateString
 import com.example.presentation.models.User
 import kotlinx.serialization.encodeToString
@@ -39,7 +38,7 @@ fun NavController.navigateToBottomNavigation() {
 }
 
 fun NavController.navigateToProductDeepLink(user: User) {
-    val userArgs = Uri.encode(Json.encodeToString(user))
+    val userArgs = user.encodeToUri()
     val deepLinkUri = Uri.parse("https://www.example.com/product/${userArgs}")
 
     navigate(deepLinkUri)
